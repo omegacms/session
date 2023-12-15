@@ -30,7 +30,7 @@ use Omega\ServiceProvider\ServiceProviderInterface;
  * SessionServiceProvider class.
  *
  * @category    Omega
- * @package     Framework\Session
+ * @package     Omega\Session
  * @subpackage  Omega\Session\ServiceProvider
  * @link        https://omegacms.github.com
  * @author      Adriano Giovannini <omegacms@outlook.com>

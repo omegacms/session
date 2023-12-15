@@ -29,7 +29,7 @@ use function str_starts_with;
  * Native driver class.
  *
  * @category    Omega
- * @package     Framework\Session
+ * @package     Omega\Session
  * @subpackage  Omega\Session\Storage
  * @link        https://omegacms.github.com
  * @author      Adriano Giovannini <omegacms@outlook.com>

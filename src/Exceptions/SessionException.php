@@ -32,7 +32,7 @@ use RuntimeException;
  * RuntimeException class.
  *
  * @category    Omega
- * @package     Framework\Session
+ * @package     Omega\Session
  * @subpackage  Omega\Session\Exception
  * @link        https://omegacms.github.com
  * @author      Adriano Giovannini <omegacms@outlook.com>

@@ -30,7 +30,7 @@ use Omega\Session\Exceptions\SessionException;
  * SessionFactory class.
  *
  * @category    Omega
- * @package     Framework\Session
+ * @package     Omega\Session
  * @link        https://omegacms.github.com
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2022 Adriano Giovannini. (https://omegacms.github.com)
