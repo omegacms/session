@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Banco Omega CMS -  Session Package
+ * Part of Omega CMS -  Session Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>

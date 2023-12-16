@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Banco Omega CMS -  Validation Package
+ * Part of Omega CMS -  Validation Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
