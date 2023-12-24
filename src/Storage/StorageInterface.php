@@ -19,7 +19,10 @@ declare( strict_types = 1 );
 namespace Omega\Session\Storage;
 
 /**
- * StorageInterface.
+ * Storage interface.
+ *
+ * The `StorageInterface` defines the contract for session storage implementations.
+ * It provides methods for checking, retrieving, storing, and removing session values.
  *
  * @category    Omega
  * @package     Omega\Session
@@ -33,27 +36,27 @@ namespace Omega\Session\Storage;
 interface StorageInterface
 {
     /**
-     * Tell if a value is session
+     * Check if a session value exists.
      *
-     * @param  string $key Holds the session key.
-     * @return bool Return true if the session exists.
+     * @param  string $key The session key.
+     * @return bool Return true if the session value exists.
      */
     public function has( string $key ) : bool;
 
     /**
      * Get a session value.
      *
-     * @param  string $key     Holds the session key.
-     * @param  mixed  $default Holds the default value or null.
-     * @return mixed
+     * @param  string $key     The session key.
+     * @param  mixed  $default The default value to return if the key is not found.
+     * @return mixed Return the session value or the default value if the key is not found.
      */
     public function get( string $key, mixed $default = null ) : mixed;
 
     /**
-     * Put a value into the session.
+     * Store a value in the session.
      *
-     * @param  string $key   Holds the session key.
-     * @param  mixed  $value Holds the session value.
+     * @param  string $key   The session key.
+     * @param  mixed  $value The session value.
      * @return $this
      */
     public function put( string $key, mixed $value ) : static;
@@ -61,7 +64,7 @@ interface StorageInterface
     /**
      * Remove a single session value.
      *
-     * @param  string $key Holds the session key.
+     * @param  string $key The session key.
      * @return $this
      */
     public function forget( string $key ) : static;

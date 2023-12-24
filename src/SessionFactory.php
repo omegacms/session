@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Validation Package
+ * Part of Omega CMS -  Session Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -29,6 +29,10 @@ use Omega\Session\Exceptions\SessionException;
 /**
  * SessionFactory class.
  *
+ * The `SessionFactory` class serves as a factory for creating and managing
+ * different session drivers. It allows you to register and bootstrap
+ * various session storage drivers based on your configuration.
+ *
  * @category    Omega
  * @package     Omega\Session
  * @link        https://omegacms.github.io
@@ -40,7 +44,7 @@ use Omega\Session\Exceptions\SessionException;
 class SessionFactory implements ServiceProviderInterface
 {
     /**
-     * Drivers array.
+     * Array of registered session drivers.
      *
      * @var array $drivers Holds an array of drivers.
      */
@@ -48,10 +52,10 @@ class SessionFactory implements ServiceProviderInterface
 
 
     /**
-     * Add driver.
+     * @inheritdoc
      *
-     * @param  string  $alias  Holds the driver alias.
-     * @param  Closure $driver Holds an instance of Closure.
+     * @param  string  $alias  The driver alias.
+     * @param  Closure $driver An instance of Closure to create the driver.
      * @return $this
      */
     public function register( string $alias, Closure $driver ) : static
@@ -62,11 +66,11 @@ class SessionFactory implements ServiceProviderInterface
     }
 
     /**
-     * Connect the driver.
+     * @inheritdoc
      *
-     * @param  array $config Holds an array of configuration.
-     * @return mixed
-     * @throws SessionException if the session is not defined or unrecognised.
+     * @param  array $config An array of configuration options for the session.
+     * @return StorageInterface
+     * @throws SessionException If the session type is not defined or unrecognised.
      */
     public function bootstrap( array $config ) : StorageInterface
     {

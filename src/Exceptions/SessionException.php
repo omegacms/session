@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Validation Package
+ * Part of Omega CMS -  Session Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -16,11 +16,6 @@ declare( strict_types = 1 );
 /**
  * @namespace
  */
-namespace Omega\Session;
-
-/**
- * @use
- */
 namespace Omega\Session\Exceptions;
 
 /**
@@ -29,7 +24,10 @@ namespace Omega\Session\Exceptions;
 use RuntimeException;
 
 /**
- * RuntimeException class.
+ * Session exception class.
+ *
+ * This `RuntimeException` serves as a base exception class for all session-related errors
+ * within the Omega CMS Session Package.
  *
  * @category    Omega
  * @package     Omega\Session

@@ -28,6 +28,8 @@ use function str_starts_with;
 /**
  * Native driver class.
  *
+ * The `NativeDrovides` provides native session storage using PHP's built-in session handling.
+ *
  * @category    Omega
  * @package     Omega\Session
  * @subpackage  Omega\Session\Storage
@@ -40,16 +42,16 @@ use function str_starts_with;
 class NativeStorage extends AbstractStorage
 {
     /**
-     * Config array.
+     * Configuration array.
      *
-     * @var array $config Holds an array of config.
+     * @var array $config Holds an array of configuration parameters.
      */
     private array $config;
 
     /**
-     * Native class constructor.
+     * NativeStorage constructor.
      *
-     * @param  array $config Holds an array of configuration params.
+     * @param  array $config Holds an array of configuration parameters.
      * @return void
      */
     public function __construct( array $config )
@@ -62,10 +64,10 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * Tell if a value is session
+     * @inheritdoc
      *
-     * @param  string $key Holds the session key.
-     * @return bool Return true if the session exists.
+     * @param  string $key The session key.
+     * @return bool Return true if the session value exists.
      */
     public function has( string $key ) : bool
     {
@@ -75,11 +77,11 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * Get a session value.
+     * @inheritdoc
      *
-     * @param  string $key     Holds the session key.
-     * @param  mixed  $default Holds the default value or null.
-     * @return mixed
+     * @param  string $key     The session key.
+     * @param  mixed  $default The default value to return if the key is not found.
+     * @return mixed Return the session value or the default value if the key is not found.
      */
     public function get( string $key, mixed $default = null ) : mixed
     {
@@ -93,10 +95,10 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * Put a value into the session.
+     * @inheritdoc
      *
-     * @param  string $key   Holds the session key.
-     * @param  mixed  $value Holds the session value.
+     * @param  string $key   The session key.
+     * @param  mixed  $value The session value.
      * @return $this
      */
     public function put( string $key, mixed $value ) : static
@@ -108,9 +110,9 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * Remove a single session value.
+     * @imheritdoc
      *
-     * @param  string $key Holds the session key.
+     * @param  string $key The session key.
      * @return $this
      */
     public function forget( string $key ) : static
@@ -123,7 +125,7 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * Remove all session values.
+     * @inheritdoc
      *
      * @return $this
      */

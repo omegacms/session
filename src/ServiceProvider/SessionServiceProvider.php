@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Validation Package
+ * Part of Omega CMS -  Session Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -29,6 +29,9 @@ use Omega\ServiceProvider\ServiceProviderInterface;
 /**
  * SessionServiceProvider class.
  *
+ * The `SessionServiceProvider` class is responsible for creating the SessionFactory instance
+ * and defining the available drivers for the session service, such as the 'native' driver.
+ *
  * @category    Omega
  * @package     Omega\Session
  * @subpackage  Omega\Session\ServiceProvider
@@ -41,7 +44,7 @@ use Omega\ServiceProvider\ServiceProviderInterface;
 class SessionServiceProvider extends AbstractServiceProvider
 {
     /**
-     * Get the service name.
+     * @inheritdoc
      *
      * @return string Return the service name.
      */
@@ -51,7 +54,7 @@ class SessionServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Get the service factory.
+     * @inheritdoc
      *
      * @return mixed
      */
@@ -61,7 +64,7 @@ class SessionServiceProvider extends AbstractServiceProvider
     }
 
     /**
-     * Get drivers.
+     * @inheritdoc
      *
      * @return array Return an array of drivers for the service.
      */
