@@ -22,8 +22,8 @@ namespace Omega\Session\Storage;
  * @use
  */
 use function array_keys;
-use function config;
 use function str_starts_with;
+use Omega\Helpers\Alias;
 
 /**
  * Native driver class.
@@ -132,7 +132,7 @@ class NativeStorage extends AbstractStorage
     public function flush() : static
     {
         foreach ( array_keys( $_SESSION ) as $key ) {
-            $prefix = config( 'session.native.prefix' );
+            $prefix = Alias::config( 'session.native.prefix' );
             if ( str_starts_with( $key, $prefix ) ) {
                 unset( $_SESSION[ $key ] );
             }
