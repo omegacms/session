@@ -22,6 +22,8 @@ namespace Omega\Session\Storage;
  * @use
  */
 use function array_keys;
+use function ini_get;
+use function ini_set;
 use function session_start;
 use function session_status;
 use function str_starts_with;
@@ -60,9 +62,14 @@ class NativeStorage extends AbstractStorage
     {
         $this->config = $config;
 
-        if ( session_status() !== PHP_SESSION_ACTIVE ) {
+        if ( ini_get( 'session_auto.start' ) === 0 && session_status() !== PHP_SESSION_ACTIVE ) {
+            ini_set('session_auto.start', 1 );
             session_start();
         }
+
+        /**if ( session_status() !== PHP_SESSION_ACTIVE ) {
+            session_start();
+        }*/
     }
 
     /**
