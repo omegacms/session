@@ -62,14 +62,9 @@ class NativeStorage extends AbstractStorage
     {
         $this->config = $config;
 
-        if ( ini_get( 'session_auto.start' ) === 0 && session_status() !== PHP_SESSION_ACTIVE ) {
-            ini_set('session_auto.start', 1 );
+        if ( session_status() !== PHP_SESSION_ACTIVE ) {
             session_start();
         }
-
-        /**if ( session_status() !== PHP_SESSION_ACTIVE ) {
-            session_start();
-        }*/
     }
 
     /**
