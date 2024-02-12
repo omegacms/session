@@ -22,11 +22,10 @@ namespace Omega\Session\Storage;
  * @use
  */
 use function array_keys;
-use function ini_get;
-use function ini_set;
 use function session_start;
 use function session_status;
 use function str_starts_with;
+use function Omega\Helpers\dump;
 use function Omega\Helpers\config;
 
 /**
@@ -60,11 +59,13 @@ class NativeStorage extends AbstractStorage
      */
     public function __construct( array $config )
     {
-        $this->config = $config;
-
         if ( session_status() !== PHP_SESSION_ACTIVE ) {
             session_start();
         }
+
+        $this->config = $config;
+
+        dump( $config );
     }
 
     /**
@@ -114,7 +115,7 @@ class NativeStorage extends AbstractStorage
     }
 
     /**
-     * @imheritdoc
+     * @inheritdoc
      *
      * @param  string $key The session key.
      * @return $this
