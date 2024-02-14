@@ -64,7 +64,7 @@ class NativeStorage extends AbstractStorage
             throw new LogicException( 'PHP extension "session" is required. Load it and reload the page.' );
         }
 
-        if ( PHP_SESSION_ACTIVE !== session_status() ) {
+        if ( PHP_SESSION_ACTIVE !== session_status() && ! session_start() ) {
             session_start();
         }
 
@@ -112,6 +112,7 @@ class NativeStorage extends AbstractStorage
     public function put( string $key, mixed $value ) : static
     {
         $prefix = $this->config[ 'prefix' ];
+        
         $_SESSION[ "{$prefix}{$key}" ] = $value;
 
         return $this;
