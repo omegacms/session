@@ -22,9 +22,9 @@ namespace Omega\Session;
  * @use
  */
 use Closure;
-use Omega\ServiceProvider\ServiceProviderInterface;
 use Omega\Session\Storage\StorageInterface;
 use Omega\Session\Exceptions\SessionException;
+use Omega\ServiceProvider\ServiceProviderInterface;
 
 /**
  * SessionFactory class.
@@ -44,23 +44,22 @@ use Omega\Session\Exceptions\SessionException;
 class SessionFactory implements ServiceProviderInterface
 {
     /**
-     * Array of registered session drivers.
+     * Array of registered session storage.
      *
-     * @var array $drivers Holds an array of drivers.
+     * @var array $storage Holds an array of registered session storage.
      */
-    protected array $drivers;
-
+    protected array $storage;
 
     /**
      * @inheritdoc
      *
-     * @param  string  $alias  The driver alias.
-     * @param  Closure $driver An instance of Closure to create the driver.
+     * @param  string  $alias   Holds the storage alias.
+     * @param  Closure $storage Holds an instance of Closure to create the storage.
      * @return $this
      */
     public function register( string $alias, Closure $driver ) : static
     {
-        $this->drivers[ $alias ] = $driver;
+        $this->storage[ $alias ] = $driver;
 
         return $this;
     }
@@ -81,9 +80,9 @@ class SessionFactory implements ServiceProviderInterface
         }
 
         $type = $config[ 'type' ];
-
-        if ( isset( $this->drivers[ $type ] ) ) {
-            return $this->drivers[ $type ]( $config );
+        
+        if ( isset( $this->storage[ $type ] ) ) {
+            return $this->storage[ $type ]( $config );
         }
 
         throw new SessionException(

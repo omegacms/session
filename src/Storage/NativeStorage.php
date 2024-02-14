@@ -22,11 +22,12 @@ namespace Omega\Session\Storage;
  * @use
  */
 use function array_keys;
+use function extension_loaded;
 use function session_start;
 use function session_status;
 use function str_starts_with;
-use function Omega\Helpers\dump;
 use function Omega\Helpers\config;
+use LogicException;
 
 /**
  * Native driver class.
@@ -59,13 +60,15 @@ class NativeStorage extends AbstractStorage
      */
     public function __construct( array $config )
     {
-        if ( session_status() !== PHP_SESSION_ACTIVE ) {
+        if ( ! extension_loaded( 'session' ) ) {
+            throw new LogicException( 'PHP extension "session" is required. Load it and reload the page.' );
+        }
+
+        if ( PHP_SESSION_ACTIVE !== session_status() ) {
             session_start();
         }
 
         $this->config = $config;
-
-        dump( $config );
     }
 
     /**

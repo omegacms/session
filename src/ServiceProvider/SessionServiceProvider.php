@@ -21,6 +21,7 @@ namespace Omega\Session\ServiceProvider;
 /**
  * @use
  */
+use function Omega\Helpers\dump;
 use Omega\Session\SessionFactory;
 use Omega\Session\Storage\NativeStorage;
 use Omega\ServiceProvider\AbstractServiceProvider;
