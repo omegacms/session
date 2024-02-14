@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Session Package
+ * Part of Omega CMS -  Cookie Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -21,27 +21,27 @@ namespace Omega\Session\ServiceProvider;
 /**
  * @use
  */
-use Omega\Session\SessionFactory;
-use Omega\Session\Storage\NativeStorage;
+use Omega\Session\CookieFactory;
+use Omega\Session\Storage\CookieStorage;
 use Omega\ServiceProvider\AbstractServiceProvider;
 use Omega\ServiceProvider\ServiceProviderInterface;
 
 /**
- * SessionServiceProvider class.
+ * CookieServiceProvider class.
  *
- * The `SessionServiceProvider` class is responsible for creating the SessionFactory instance
- * and defining the available drivers for the session service, such as the 'native' driver.
+ * The `CookieServiceProvider` class is responsible for creating the CookieFactory instance
+ * and defining the available drivers for the cookie service, such as the 'native' driver.
  *
  * @category    Omega
- * @package     Omega\Session
- * @subpackage  Omega\Session\ServiceProvider
+ * @package     Omega\Cookie
+ * @subpackage  Omega\Cookie\ServiceProvider
  * @link        https://omegacms.github.io
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2022 Adriano Giovannini. (https://omegacms.github.io)
  * @license     https://www.gnu.org/licenses/gpl-3.0-standalone.html     GPL V3.0+
  * @version     1.0.0
  */
-class SessionServiceProvider extends AbstractServiceProvider
+class CookieServiceProvider extends AbstractServiceProvider
 {
     /**
      * @inheritdoc
@@ -50,7 +50,7 @@ class SessionServiceProvider extends AbstractServiceProvider
      */
     protected function name() : string
     {
-        return 'session';
+        return 'cookie';
     }
 
     /**
@@ -60,7 +60,7 @@ class SessionServiceProvider extends AbstractServiceProvider
      */
     protected function factory() : ServiceProviderInterface
     {
-        return new SessionFactory();
+        return new CookieFactory();
     }
 
     /**
@@ -72,7 +72,7 @@ class SessionServiceProvider extends AbstractServiceProvider
     {
         return [
             'native' => function ( $config ) {
-                return new NativeStorage( $config );
+                return new CookieStorage( $config );
             },
         ];
     }

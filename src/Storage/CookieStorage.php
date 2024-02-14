@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Session Package
+ * Part of Omega CMS -  Cookie Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -23,29 +23,27 @@ namespace Omega\Session\Storage;
  */
 use function array_keys;
 use function extension_loaded;
-use function session_start;
-use function session_status;
 use function str_starts_with;
 use function Omega\Helpers\config;
 use LogicException;
 
 /**
- * Native driver class.
+ * Cookie storage class.
  *
- * The `NativeDrovides` provides native session storage using PHP's built-in session handling.
+ * The `CookieStorage` provides native cookie storage using PHP's built-in cookie handling.
  *
  * @category    Omega
- * @package     Omega\Session
- * @subpackage  Omega\Session\Storage
+ * @package     Omega\Cookie
+ * @subpackage  Omega\Cookie\Storage
  * @link        https://omegacms.github.io
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2022 Adriano Giovannini. (https://omegacms.github.io)
  * @license     https://www.gnu.org/licenses/gpl-3.0-standalone.html     GPL V3.0+
  * @version     1.0.0
  */
-class NativeStorage extends AbstractStorage
+class CookieStorage extends AbstractStorage
 { 
-        /**
+    /**
      * Configuration array.
      *
      * @var array $config Holds an array of configuration parameters.
@@ -53,7 +51,7 @@ class NativeStorage extends AbstractStorage
     private array $config;
 
     /**
-     * NativeStorage constructor.
+     * CookieStorage constructor.
      *
      * @param  array $config Holds an array of configuration parameters.
      * @return void
@@ -61,59 +59,42 @@ class NativeStorage extends AbstractStorage
     public function __construct( array $config )
     {
         $this->config = $config;
-        
-        if ( ! extension_loaded( 'session' ) ) {
-            throw new LogicException( 'PHP extension "session" is required. Load it and reload the page.' );
-        }
-
-        if ( PHP_SESSION_ACTIVE !== session_status() && ! session_start() ) {
-            session_start();
-        }
     }
 
     /**
      * @inheritdoc
      *
-     * @param  string $key The session key.
-     * @return bool Return true if the session value exists.
+     * @param  string $key The cookie key.
+     * @return bool Return true if the cookie value exists.
      */
     public function has( string $key ) : bool
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        return isset( $_SESSION[ "{$prefix}{$key}" ] );
+        return isset( $_COOKIE[ $key ] );
     }
 
     /**
      * @inheritdoc
      *
-     * @param  string $key     The session key.
+     * @param  string $key     The cookie key.
      * @param  mixed  $default The default value to return if the key is not found.
-     * @return mixed Return the session value or the default value if the key is not found.
+     * @return mixed Return the cookie value or the default value if the key is not found.
      */
     public function get( string $key, mixed $default = null ) : mixed
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        if ( isset( $_SESSION[ "{$prefix}{$key}" ] ) ) {
-            return $_SESSION[ "{$prefix}{$key}" ];
-        }
-
-        return $default;
+        return $this->has( $key ) ? $_COOKIE[ $key ] : $default;
     }
 
     /**
      * @inheritdoc
      *
-     * @param  string $key   The session key.
-     * @param  mixed  $value The session value.
+     * @param  string $key   The cookie key.
+     * @param  mixed  $value The cookie value.
      * @return $this
      */
     public function put( string $key, mixed $value ) : static
     {
-        $prefix = $this->config[ 'prefix' ];
-        
-        $_SESSION[ "{$prefix}{$key}" ] = $value;
+        $expire = time() + ($this->config['expire'] ?? 0);
+        setcookie($key, $value, $expire, $this->config['path'] ?? '/', $this->config['domain'] ?? '', $this->config['secure'] ?? false, $this->config['httponly'] ?? false);
 
         return $this;
     }
@@ -121,14 +102,15 @@ class NativeStorage extends AbstractStorage
     /**
      * @inheritdoc
      *
-     * @param  string $key The session key.
+     * @param  string $key The cookie key.
      * @return $this
      */
     public function forget( string $key ) : static
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        unset( $_SESSION[ "{$prefix}{$key}" ] );
+        if ( $this->has( $key ) ) {
+            setcookie( $key, '', time() - 3600, $this->config[ 'path' ] ?? '/', $this->config[ 'domain' ] ?? '' );
+            unset( $_COOKIE[ $key ] );
+        }
 
         return $this;
     }
@@ -140,11 +122,8 @@ class NativeStorage extends AbstractStorage
      */
     public function flush() : static
     {
-        foreach ( array_keys( $_SESSION ) as $key ) {
-            $prefix = config( 'session.native.prefix' );
-            if ( str_starts_with( $key, $prefix ) ) {
-                unset( $_SESSION[ $key ] );
-            }
+        foreach ( array_keys( $_COOKIE ) as $key ) {
+            $this->forget( $key );
         }
 
         return $this;
