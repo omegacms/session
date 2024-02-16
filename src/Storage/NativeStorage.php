@@ -26,7 +26,6 @@ use function extension_loaded;
 use function session_start;
 use function session_status;
 use function str_starts_with;
-use function Omega\Helpers\config;
 use LogicException;
 
 /**
@@ -45,12 +44,19 @@ use LogicException;
  */
 class NativeStorage extends AbstractStorage
 { 
-        /**
+    /**
      * Configuration array.
      *
      * @var array $config Holds an array of configuration parameters.
      */
-    private array $config;
+    private readonly array $config;
+
+    /**
+     * The session prefix.
+     * 
+     * @var string $prefix Holds the session prefix. 
+     */
+    private readonly string $prefix;
 
     /**
      * NativeStorage constructor.
@@ -60,8 +66,6 @@ class NativeStorage extends AbstractStorage
      */
     public function __construct( array $config )
     {
-        $this->config = $config;
-        
         if ( ! extension_loaded( 'session' ) ) {
             throw new LogicException( 'PHP extension "session" is required. Load it and reload the page.' );
         }
@@ -69,6 +73,10 @@ class NativeStorage extends AbstractStorage
         if ( PHP_SESSION_ACTIVE !== session_status() && ! session_start() ) {
             session_start();
         }
+
+        $this->config = $config;
+        $this->prefix = $this->config[ 'prefix' ] ?? '';
+        
     }
 
     /**
@@ -79,9 +87,7 @@ class NativeStorage extends AbstractStorage
      */
     public function has( string $key ) : bool
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        return isset( $_SESSION[ "{$prefix}{$key}" ] );
+        return isset( $_SESSION[ "{$this->prefix}{$key}" ] );
     }
 
     /**
@@ -93,10 +99,8 @@ class NativeStorage extends AbstractStorage
      */
     public function get( string $key, mixed $default = null ) : mixed
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        if ( isset( $_SESSION[ "{$prefix}{$key}" ] ) ) {
-            return $_SESSION[ "{$prefix}{$key}" ];
+        if ( isset( $_SESSION[ "{$this->prefix}{$key}" ] ) ) {
+            return $_SESSION[ "{$this->prefix}{$key}" ];
         }
 
         return $default;
@@ -111,9 +115,7 @@ class NativeStorage extends AbstractStorage
      */
     public function put( string $key, mixed $value ) : static
     {
-        $prefix = $this->config[ 'prefix' ];
-        
-        $_SESSION[ "{$prefix}{$key}" ] = $value;
+       $_SESSION[ "{$this->prefix}{$key}" ] = $value;
 
         return $this;
     }
@@ -126,9 +128,7 @@ class NativeStorage extends AbstractStorage
      */
     public function forget( string $key ) : static
     {
-        $prefix = $this->config[ 'prefix' ];
-
-        unset( $_SESSION[ "{$prefix}{$key}" ] );
+        unset( $_SESSION[ "{$this->prefix}{$key}" ] );
 
         return $this;
     }
@@ -141,8 +141,7 @@ class NativeStorage extends AbstractStorage
     public function flush() : static
     {
         foreach ( array_keys( $_SESSION ) as $key ) {
-            $prefix = config( 'session.native.prefix' );
-            if ( str_starts_with( $key, $prefix ) ) {
+            if ( str_starts_with( $key, $this->prefix ) ) {
                 unset( $_SESSION[ $key ] );
             }
         }
