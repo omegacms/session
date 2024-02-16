@@ -23,7 +23,7 @@ namespace Omega\Session;
  */
 use Closure;
 use Omega\Session\Storage\StorageInterface;
-use Omega\Session\Exceptions\SessionException;
+use Omega\Session\Exception\StorageException;
 use Omega\ServiceProvider\ServiceProviderInterface;
 
 /**
@@ -69,23 +69,23 @@ class SessionFactory implements ServiceProviderInterface
      *
      * @param  array $config An array of configuration options for the session.
      * @return StorageInterface
-     * @throws SessionException If the session type is not defined or unrecognised.
+     * @throws StorageException If the session type is not defined or unrecognised.
      */
     public function bootstrap( array $config ) : StorageInterface
     {
         if ( ! isset( $config[ 'type' ] ) ) {
-            throw new SessionException(
+            throw new StorageException(
                 'Type is not defined.'
             );
         }
 
         $type = $config[ 'type' ];
-        
+
         if ( isset( $this->storage[ $type ] ) ) {
             return $this->storage[ $type ]( $config );
         }
 
-        throw new SessionException(
+        throw new StorageException(
             'Unrecognised type.'
         );
     }

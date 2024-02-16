@@ -43,7 +43,7 @@ use LogicException;
  * @version     1.0.0
  */
 class NativeStorage extends AbstractStorage
-{ 
+{
     /**
      * Configuration array.
      *
@@ -53,8 +53,8 @@ class NativeStorage extends AbstractStorage
 
     /**
      * The session prefix.
-     * 
-     * @var string $prefix Holds the session prefix. 
+     *
+     * @var string $prefix Holds the session prefix.
      */
     private readonly string $prefix;
 
@@ -76,7 +76,6 @@ class NativeStorage extends AbstractStorage
 
         $this->config = $config;
         $this->prefix = $this->config[ 'prefix' ] ?? '';
-        
     }
 
     /**

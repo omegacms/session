@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of Omega CMS -  Cookie Package
+ * Part of Omega CMS -  Session Package
  *
  * @link       https://omegacms.github.io
  * @author     Adriano Giovannini <omegacms@outlook.com>
@@ -16,7 +16,7 @@ declare( strict_types = 1 );
 /**
  * @namespace
  */
-namespace Omega\Session\Exceptions;
+namespace Omega\Session\Exception;
 
 /**
  * @use
@@ -24,14 +24,14 @@ namespace Omega\Session\Exceptions;
 use RuntimeException;
 
 /**
- * Cookie exception class.
+ * StorageException exception class.
  *
- * This `RuntimeException` serves as a base exception class for all cookie-related errors
+ * The `StorageException` serves as a base exception class for all session-related errors
  * within the Omega CMS Session Package.
  *
  * @category    Omega
- * @package     Omega\Cookie
- * @subpackage  Omega\Cookie\Exception
+ * @package     Omega\Session
+ * @subpackage  Omega\Session\Exception
  * @link        https://omegacms.github.io
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2022 Adriano Giovannini. (https://omegacms.github.io)
@@ -39,6 +39,6 @@ use RuntimeException;
  * @version     1.0.0
  */
 
-class CookieException extends RuntimeException
+class StorageException extends RuntimeException
 {
 }
