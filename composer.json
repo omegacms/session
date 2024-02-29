@@ -1,11 +1,5 @@
-{
-  "name": "omegacms/session",
-  "type": "package",
-  "description": "Omega CMS Session Package",
-  "keywords": [ "omegacms", "framework", "session" ],
-  "homepage": "https://omegacms.github.io",
-  "license": "GPL-3.0",
-  "authors": [
+{ "name": "omegacms/session", "type": "package", "description": "Omega CMS Session Package", "keywords": [ "omegacms", "framework", "session" ], 
+  "homepage": "https://omegacms.github.io", "license": "GPL-3.0", "authors": [
     {
       "name": "Adriano Giovannini",
       "email": "agisoftt@gmail.com",
@@ -15,7 +9,7 @@
   ],
   "require": {
     "php": ">=8.2",
-    "omegacms/service-provider": "^1.0.0"
+    "omegacms/container": "^1.0.0"
   },
   "require-dev": {
     "omegacms/testing": "^1.0.0",
