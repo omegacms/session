@@ -23,8 +23,8 @@ namespace Omega\Session\ServiceProvider;
  */
 use Omega\Session\SessionFactory;
 use Omega\Session\Storage\NativeStorage;
-use Omega\ServiceProvider\AbstractServiceProvider;
-use Omega\ServiceProvider\ServiceProviderInterface;
+use Omega\Container\ServiceProvider\AbstractServiceProvider;
+use Omega\Container\ServiceProvider\ServiceProviderInterface;
 
 /**
  * SessionServiceProvider class.

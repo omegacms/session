@@ -24,7 +24,7 @@ namespace Omega\Session;
 use Closure;
 use Omega\Session\Storage\StorageInterface;
 use Omega\Session\Exception\StorageException;
-use Omega\ServiceProvider\ServiceProviderInterface;
+use Omega\Container\ServiceProvider\ServiceProviderInterface;
 
 /**
  * SessionFactory class.
