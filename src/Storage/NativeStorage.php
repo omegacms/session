@@ -31,7 +31,7 @@ use LogicException;
 /**
  * Native driver class.
  *
- * The `NativeDrovides` provides native session storage using PHP's built-in session handling.
+ * The `NativeStorage` class provides native session storage using PHP's built-in session handling.
  *
  * @category    Omega
  * @package     Omega\Session
@@ -86,7 +86,7 @@ class NativeStorage extends AbstractStorage
      */
     public function has( string $key ) : bool
     {
-        return isset( $_SESSION[ "{$this->prefix}{$key}" ] );
+        return isset( $_SESSION[ "$this->prefix . $key" ] );
     }
 
     /**
@@ -98,8 +98,8 @@ class NativeStorage extends AbstractStorage
      */
     public function get( string $key, mixed $default = null ) : mixed
     {
-        if ( isset( $_SESSION[ "{$this->prefix}{$key}" ] ) ) {
-            return $_SESSION[ "{$this->prefix}{$key}" ];
+        if ( isset( $_SESSION[ "$this->prefix . $key" ] ) ) {
+            return $_SESSION[ "$this->prefix . $key" ];
         }
 
         return $default;
@@ -114,7 +114,7 @@ class NativeStorage extends AbstractStorage
      */
     public function put( string $key, mixed $value ) : static
     {
-       $_SESSION[ "{$this->prefix}{$key}" ] = $value;
+       $_SESSION[ "$this->prefix . $key" ] = $value;
 
         return $this;
     }
@@ -127,7 +127,7 @@ class NativeStorage extends AbstractStorage
      */
     public function forget( string $key ) : static
     {
-        unset( $_SESSION[ "{$this->prefix}{$key}" ] );
+        unset( $_SESSION[ "$this->prefix . $key" ] );
 
         return $this;
     }
