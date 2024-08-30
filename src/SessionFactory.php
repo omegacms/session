@@ -53,8 +53,8 @@ class SessionFactory implements ServiceProviderInterface
     /**
      * @inheritdoc
      *
-     * @param  string  $alias   Holds the storage alias.
-     * @param  Closure $storage Holds an instance of Closure to create the storage.
+     * @param  string  $alias  Holds the storage alias.
+     * @param  Closure $driver Holds an instance of Closure to create the storage.
      * @return $this
      */
     public function register( string $alias, Closure $driver ) : static

@@ -56,7 +56,7 @@ class SessionServiceProvider extends AbstractServiceProvider
     /**
      * @inheritdoc
      *
-     * @return mixed
+     * @return ServiceProviderInterface Return an instance of ServiceProviderInterface.
      */
     protected function factory() : ServiceProviderInterface
     {
