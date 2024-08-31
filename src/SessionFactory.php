@@ -67,7 +67,7 @@ class SessionFactory implements ServiceProviderInterface
     /**
      * @inheritdoc
      *
-     * @param  array $config An array of configuration options for the session.
+     * @param  array<string, mixed> $config An array of configuration options for the session.
      * @return StorageInterface
      * @throws StorageException If the session type is not defined or unrecognised.
      */
