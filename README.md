@@ -1,3 +1,4 @@
+![PHPStan Level](https://img.shields.io/badge/PHPStan-level_9-brightgreen)
 # Session Package
 
 ## Requirements

@@ -46,7 +46,7 @@ class SessionFactory implements ServiceProviderInterface
     /**
      * Array of registered session storage.
      *
-     * @var array $storage Holds an array of registered session storage.
+     * @var array<string, Closure(array<string, mixed>): StorageInterface> $storage Holds an array of registered session storage.
      */
     protected array $storage;
 

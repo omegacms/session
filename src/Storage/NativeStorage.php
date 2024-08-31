@@ -47,7 +47,7 @@ class NativeStorage extends AbstractStorage
     /**
      * Configuration array.
      *
-     * @var array $config Holds an array of configuration parameters.
+     * @var array<string, mixed> $config Holds an array of configuration parameters.
      */
     private readonly array $config;
 
@@ -61,7 +61,7 @@ class NativeStorage extends AbstractStorage
     /**
      * NativeStorage constructor.
      *
-     * @param  array $config Holds an array of configuration parameters.
+     * @param  array<string, mixed> $config Holds an array of configuration parameters.
      * @return void
      */
     public function __construct( array $config )
@@ -75,8 +75,10 @@ class NativeStorage extends AbstractStorage
         }
 
         $this->config = $config;
-        $this->prefix = $this->config[ 'prefix' ] ?? '';
-        
+        //$this->prefix = $this->config[ 'prefix' ] ?? '';
+        $this->prefix = isset($this->config['prefix']) && is_string($this->config['prefix'])
+            ? $this->config['prefix']
+            : '';
     }
 
     /**
