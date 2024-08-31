@@ -21,6 +21,7 @@ namespace Omega\Session\ServiceProvider;
 /**
  * @use
  */
+use Closure;
 use Omega\Session\SessionFactory;
 use Omega\Session\Storage\NativeStorage;
 use Omega\Container\ServiceProvider\AbstractServiceProvider;
@@ -66,7 +67,7 @@ class SessionServiceProvider extends AbstractServiceProvider
     /**
      * @inheritdoc
      *
-     * @return array Return an array of drivers for the service.
+     * @return array<string, Closure> Return an array of drivers for the service.
      */
     protected function drivers() : array
     {
