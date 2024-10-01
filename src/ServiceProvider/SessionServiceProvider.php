@@ -21,11 +21,10 @@ namespace Omega\Session\ServiceProvider;
 /**
  * @use
  */
-use Closure;
-use Omega\Session\SessionFactory;
-use Omega\Session\Storage\NativeStorage;
-use Omega\Container\ServiceProvider\AbstractServiceProvider;
+use Omega\Application\Application;
 use Omega\Container\ServiceProvider\ServiceProviderInterface;
+use Omega\Session\Factory\SessionFactory;
+use Omega\Support\Facades\Config;
 
 /**
  * SessionServiceProvider class.
@@ -42,39 +41,21 @@ use Omega\Container\ServiceProvider\ServiceProviderInterface;
  * @license     https://www.gnu.org/licenses/gpl-3.0-standalone.html     GPL V3.0+
  * @version     1.0.0
  */
-class SessionServiceProvider extends AbstractServiceProvider
+class SessionServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @inheritdoc
-     *
-     * @return string Return the service name.
+     * Registers or binds services into the application container.
+     * 
+     * @param  Application $application Holds the main application container to which services are bound.
+     * @return void This method does not return a value.
      */
-    protected function name() : string
+    public function bind(Application $application) : void // Non deve ritornare un factory
     {
-        return 'session';
-    }
+        $application->alias( 'session', function () {
+            $config  = Config::get( 'session' );
+            $default = $config[ 'default' ];
 
-    /**
-     * @inheritdoc
-     *
-     * @return ServiceProviderInterface Return an instance of ServiceProviderInterface.
-     */
-    protected function factory() : ServiceProviderInterface
-    {
-        return new SessionFactory();
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return array<string, Closure> Return an array of drivers for the service.
-     */
-    protected function drivers() : array
-    {
-        return [
-            'native' => function ( $config ) {
-                return new NativeStorage( $config );
-            },
-        ];
+            return (new SessionFactory())->create($config[$default]);
+        });
     }
 }
