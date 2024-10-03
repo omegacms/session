@@ -24,7 +24,7 @@ namespace Omega\Session\ServiceProvider;
 use Omega\Application\Application;
 use Omega\Container\ServiceProvider\ServiceProviderInterface;
 use Omega\Session\Factory\SessionFactory;
-use Omega\Support\Facades\Config;
+use Omega\Support\Facade\Facades\Config;
 
 /**
  * SessionServiceProvider class.
