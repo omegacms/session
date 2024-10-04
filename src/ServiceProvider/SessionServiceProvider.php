@@ -33,8 +33,8 @@ use Omega\Support\Facade\Facades\Config;
  * and defining the available drivers for the session service, such as the 'native' driver.
  *
  * @category    Omega
- * @package     Omega\Session
- * @subpackage  Omega\Session\ServiceProvider
+ * @package     Session
+ * @subpackage  ServiceProvider
  * @link        https://omegacms.github.io
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2024 Adriano Giovannini. (https://omegacms.github.io)

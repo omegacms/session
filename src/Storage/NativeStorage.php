@@ -31,11 +31,11 @@ use LogicException;
 /**
  * Native driver class.
  *
- * The `NativeDrovides` provides native session storage using PHP's built-in session handling.
+ * The `NativeStorage` provides native session storage using PHP's built-in session handling.
  *
  * @category    Omega
- * @package     Omega\Session
- * @subpackage  Omega\Session\Storage
+ * @package     Session
+ * @subpackage  Storage
  * @link        https://omegacms.github.io
  * @author      Adriano Giovannini <omegacms@outlook.com>
  * @copyright   Copyright (c) 2024 Adriano Giovannini. (https://omegacms.github.io)

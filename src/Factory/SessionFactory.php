@@ -21,7 +21,7 @@ namespace Omega\Session\Factory;
 /**
  * @use
  */
-use Exception;
+use Omega\Session\Exception\StorageException;
 use Omega\Session\Storage\NativeStorage;
 use Omega\Session\Storage\StorageInterface;
 
@@ -47,19 +47,19 @@ class SessionFactory
      * @inheritdoc
      * 
      * @param ?array $config Holds an optional configuration array that may be used to influence the creation of the object. If no configuration is provided, default settings may be applied.
-     * @return mixed Return the created object or value. The return type is flexible, allowing for any type to be returned, depending on the implementation.
+     * @return StorageInterface Return the created object or value. The return type is flexible, allowing for any type to be returned, depending on the implementation.
      */
     public function create( ?array $config = null ) : StorageInterface
     {
         if ( ! isset( $config[ 'type' ] ) ) {
-            throw new Exception(
+            throw new StorageException(
                 'Type is not defined.'
             );
         }
 
         return match( $config[ 'type' ] ) {
             'native' => new NativeStorage( $config ),
-            default  => throw new Exception( 'Unrecognised type.' )
+            default  => throw new StorageException( 'Unrecognised type.' )
         };
     }    
 }
